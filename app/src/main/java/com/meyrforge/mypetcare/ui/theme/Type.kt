@@ -17,6 +17,13 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
+    bodyMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.manrope_variablefont_wght)),
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
+    ),
     displayLarge = TextStyle(
         fontFamily = FontFamily(Font(R.font.manrope_variablefont_wght)),
         fontWeight = FontWeight.SemiBold,

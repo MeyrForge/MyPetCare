@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,40 +41,43 @@ fun PetsDrowpdown() {
     val itemPosition = remember { mutableIntStateOf(0) }
     val pets = listOf("Pipa", "Rocco", "Willow")
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = Modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
                 .background(
-                    background,
+                    secondaryColor,
                     RoundedCornerShape(5.dp)
                 )
                 .padding(10.dp)
         ) {
             Row(
-                horizontalArrangement = Arrangement.Center,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(fraction = 0.6f)
                     .clickable { isDropDownExpanded.value = true }
             ) {
-                Image(painterResource(R.drawable.nine), "pet image", modifier = Modifier.size(30.dp))
-                Text(
-                    pets[itemPosition.intValue],
-                    color = mainColor,
-                    fontSize = 24.sp,
-                    style = MaterialTheme.typography.titleLarge
-                )
+                Row {
+                    Image(
+                        painterResource(R.drawable.nine),
+                        "pet image",
+                        modifier = Modifier.size(30.dp)
+                    )
+                    Text(
+                        pets[itemPosition.intValue],
+                        color = background,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
                 Icon(
                     Icons.Filled.ArrowDropDown,
                     "Desplegar",
-                    tint = mainColor,
+                    tint = background,
                     modifier = Modifier.size(24.dp)
                 )
             }
