@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.meyrforge.mypetcare.ui.theme.background
+import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.green
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
@@ -43,18 +43,18 @@ fun SingleRoutineItem() {
             .padding(12.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
-            Text("08:00", color = background, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+            Text("08:00", color = lightBlue, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
             Column(modifier = Modifier.padding(horizontal = 12.dp)) {
-                Text("Dar de comer", color = background, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
-                Text("Una taza de alimento", color = background, style = MaterialTheme.typography.bodyMedium)
+                Text("Dar de comer", color = lightBlue, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+                Text("Una taza de alimento", color = lightBlue, style = MaterialTheme.typography.bodyMedium)
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 //Icon(Icons.Rounded.Check, contentDescription = "Realizado", tint = green)
-                Text("Realizado", color = background, style = MaterialTheme.typography.bodyMedium)
+                Text("Realizado", color = lightBlue, style = MaterialTheme.typography.bodyMedium)
                 CustomCheckBox()
             }
         }
-        HorizontalDivider(thickness = 2.dp, color = background.copy(alpha = 0.5f), modifier = Modifier.padding(vertical = 6.dp))
+        HorizontalDivider(thickness = 2.dp, color = lightBlue.copy(alpha = 0.5f), modifier = Modifier.padding(vertical = 6.dp))
     }
 }
 

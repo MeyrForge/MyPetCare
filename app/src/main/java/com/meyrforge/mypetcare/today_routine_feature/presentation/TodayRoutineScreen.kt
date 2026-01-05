@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.meyrforge.mypetcare.today_routine_feature.presentation.components.PetsDrowpdown
 import com.meyrforge.mypetcare.today_routine_feature.presentation.components.SingleRoutineItem
-import com.meyrforge.mypetcare.ui.theme.background
+import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.details
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
@@ -42,7 +41,7 @@ fun TodayRoutineScreen() {
             style = MaterialTheme.typography.displayLarge,
             fontSize = 26.sp,
             fontWeight = FontWeight.Bold,
-            color = background,
+            color = lightBlue,
             modifier = Modifier.padding(8.dp)
         )
         Row(
