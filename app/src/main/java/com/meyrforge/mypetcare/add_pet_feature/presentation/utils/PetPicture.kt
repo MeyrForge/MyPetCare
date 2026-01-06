@@ -33,3 +33,10 @@ object BackgroundColorProvider {
         BackgroundColor("Green", pastelGreen),
     )
 }
+
+object SpeciesProvider {
+    val speciesTranslated = listOf(
+        "Perro" to Species.DOG,
+        "Gato" to Species.CAT
+    )
+}

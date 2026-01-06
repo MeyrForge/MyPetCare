@@ -34,28 +34,28 @@ import com.meyrforge.mypetcare.ui.theme.details
 import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
-@Preview
+
 @Composable
 fun EditPetPictureItem() {
     var openPicSelectionCard by remember { mutableStateOf(false) }
     Box(modifier = Modifier
         .padding(12.dp)
         .background(lightBlue, CircleShape)
-        .padding(22.dp).clickable{
-            openPicSelectionCard = true
-        }, contentAlignment = Alignment.Center) {
+        .padding(30.dp), contentAlignment = Alignment.Center) {
         Icon(Icons.Rounded.Pets, "Icono de Mascota", tint = secondaryColor.copy(alpha = 0.3f), modifier = Modifier.size(50.dp))
         Box(modifier = Modifier
-            .offset(30.dp, 30.dp)
+            .offset(35.dp, 35.dp)
             .background(details, CircleShape)
-            .padding(4.dp)) {
+            .padding(4.dp).clickable{
+                openPicSelectionCard = true
+            }) {
             Icon(Icons.Rounded.Edit, "Seleccionar Icono de Mascota", tint = Color.White)
         }
     }
 
     if(openPicSelectionCard){
         Dialog(onDismissRequest = { openPicSelectionCard = false }) {
-            Column {
+            Column(modifier = Modifier.background(Color.White.copy(alpha = 0.9f))) {
                 Text("Icono")
                 LazyVerticalGrid(columns = GridCells.Fixed(3)) {
                     items(PetDataProvider.petPictures.size) {
