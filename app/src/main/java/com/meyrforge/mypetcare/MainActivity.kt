@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.Pets
 import androidx.compose.material.icons.rounded.Today
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -40,8 +41,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.meyrforge.mypetcare.add_pet_feature.presentation.AddPetScreen
 import com.meyrforge.mypetcare.common.Screen
 import com.meyrforge.mypetcare.today_routine_feature.presentation.TodayRoutineScreen
 import com.meyrforge.mypetcare.ui.theme.MyPetCareTheme
@@ -80,7 +84,17 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { innerPadding ->
                         Box(modifier = Modifier.padding(innerPadding)) {
-                            TodayRoutineScreen()
+                            NavHost(
+                                navController = navController,
+                                startDestination = Screen.TodayRoutineScreen.route
+                            ) {
+                                composable(route = Screen.TodayRoutineScreen.route) {
+                                    TodayRoutineScreen()
+                                }
+                                composable(route = Screen.AddPetScreen.route) {
+                                    AddPetScreen()
+                                }
+                            }
                         }
                     }
                 }
@@ -112,6 +126,28 @@ fun NavigationBarComponent(navController: NavController) {
                 }
             },
             label = { Text("Rutina de Hoy", style = MaterialTheme.typography.bodyLarge) },
+            colors = NavigationBarItemDefaults.colors(
+                unselectedIconColor = lightBlue,
+                unselectedTextColor = lightBlue,
+                indicatorColor = Color.Transparent,
+                selectedTextColor = details,
+                selectedIconColor = details
+            )
+        )
+        val addPetScreen = Screen.AddPetScreen
+        NavigationBarItem(
+            icon = { Icon(Icons.Rounded.Pets, "Pantalla de Agregar Mascota") },
+            selected = currentDestination?.hierarchy?.any { it.route == addPetScreen.route } == true,
+            onClick = {
+                navController.navigate(addPetScreen.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
+            label = { Text("Agregar Mascota", style = MaterialTheme.typography.bodyLarge) },
             colors = NavigationBarItemDefaults.colors(
                 unselectedIconColor = lightBlue,
                 unselectedTextColor = lightBlue,
