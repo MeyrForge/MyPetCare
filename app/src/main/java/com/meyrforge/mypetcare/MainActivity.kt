@@ -47,6 +47,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.meyrforge.mypetcare.add_pet_feature.presentation.AddPetScreen
 import com.meyrforge.mypetcare.common.Screen
+import com.meyrforge.mypetcare.feature_login.presentation.LoginScreen
 import com.meyrforge.mypetcare.today_routine_feature.presentation.TodayRoutineScreen
 import com.meyrforge.mypetcare.ui.theme.MyPetCareTheme
 import com.meyrforge.mypetcare.ui.theme.background
@@ -76,8 +77,11 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                         containerColor = background,
-                        bottomBar = { NavigationBarComponent(navController = navController) },
+                        bottomBar = {
+                            if (navController.currentBackStackEntryAsState().value?.destination?.route != Screen.LoginScreen.route)
+                            NavigationBarComponent(navController = navController) },
                         topBar = {
+                            if (navController.currentBackStackEntryAsState().value?.destination?.route != Screen.LoginScreen.route)
                             TopBarComponent(onMenuClick = {
                                 scope.launch { drawerState.open() }
                             })
@@ -86,13 +90,16 @@ class MainActivity : ComponentActivity() {
                         Box(modifier = Modifier.padding(innerPadding)) {
                             NavHost(
                                 navController = navController,
-                                startDestination = Screen.TodayRoutineScreen.route
+                                startDestination = Screen.LoginScreen.route
                             ) {
                                 composable(route = Screen.TodayRoutineScreen.route) {
                                     TodayRoutineScreen()
                                 }
                                 composable(route = Screen.AddPetScreen.route) {
                                     AddPetScreen()
+                                }
+                                composable(route = Screen.LoginScreen.route) {
+                                    LoginScreen(navController)
                                 }
                             }
                         }

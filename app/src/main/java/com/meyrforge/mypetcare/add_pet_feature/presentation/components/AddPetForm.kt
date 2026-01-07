@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.Note
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.rounded.Badge
-import androidx.compose.material.icons.rounded.Note
 import androidx.compose.material.icons.rounded.Pets
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
