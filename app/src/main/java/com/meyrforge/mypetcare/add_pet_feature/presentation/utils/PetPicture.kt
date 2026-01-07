@@ -17,6 +17,15 @@ object PetDataProvider {
         PetPicture(2, R.drawable.nine, Species.DOG),
         PetPicture(3, R.drawable.fourteen, Species.CAT),
         PetPicture(4, R.drawable.sixteen, Species.CAT),
+        PetPicture(5, R.drawable.eight, Species.DOG),
+        PetPicture(6, R.drawable.ten, Species.DOG),
+        PetPicture(7, R.drawable.twelve, Species.CAT),
+        PetPicture(8, R.drawable.five, Species.DOG),
+        PetPicture(9, R.drawable.seven, Species.DOG),
+        PetPicture(10, R.drawable.six, Species.DOG),
+        PetPicture(11, R.drawable.eleven, Species.CAT),
+        PetPicture(12, R.drawable.thirteen, Species.CAT),
+        PetPicture(13, R.drawable.fifteen, Species.CAT),
     )
 }
 

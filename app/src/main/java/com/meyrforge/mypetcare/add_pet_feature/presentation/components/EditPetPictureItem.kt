@@ -19,7 +19,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Pets
-import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -41,11 +41,11 @@ import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.BackgroundColo
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.BackgroundColorProvider
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.PetDataProvider
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.PetPicture
+import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.Species
 import com.meyrforge.mypetcare.ui.theme.details
 import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
-@Preview
 @Composable
 fun EditPetPictureItem() {
     var openPicSelectionCard by remember { mutableStateOf(false) }
@@ -53,6 +53,7 @@ fun EditPetPictureItem() {
     var selectedBackgroundIndex by remember { mutableStateOf<Int?>(null) }
     var selectedPicture by remember { mutableStateOf<PetPicture?>(null) }
     var selectedBackgroundColor by remember { mutableStateOf<BackgroundColor?>(null) }
+    var catOrDogFilter by remember { mutableStateOf<Species?>(null) }
 
     Box(
         modifier = Modifier
@@ -64,7 +65,7 @@ fun EditPetPictureItem() {
             Image(
                 painter = painterResource(id = selectedPicture!!.imageRes),
                 contentDescription = "Mascota seleccionada",
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(100.dp)
             )
         } else {
             Icon(
@@ -102,16 +103,37 @@ fun EditPetPictureItem() {
                     color = secondaryColor,
                     fontWeight = FontWeight.Bold
                 )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        "Gato", style = MaterialTheme.typography.bodyLarge,
+                        color = secondaryColor
+                    )
+                    Checkbox(
+                        catOrDogFilter == Species.CAT,
+                        onCheckedChange = { catOrDogFilter = Species.CAT })
+                    Text(
+                        "Perro", style = MaterialTheme.typography.bodyLarge,
+                        color = secondaryColor
+                    )
+                    Checkbox(
+                        catOrDogFilter == Species.DOG,
+                        onCheckedChange = { catOrDogFilter = Species.DOG })
+                }
                 LazyVerticalGrid(columns = GridCells.Fixed(3)) {
-                    items(PetDataProvider.petPictures.size) { index ->
+                    val listToShow =
+                        if (catOrDogFilter == Species.CAT) PetDataProvider.petPictures.filter { it.species == Species.CAT } else if (catOrDogFilter == Species.DOG) PetDataProvider.petPictures.filter { it.species == Species.DOG } else PetDataProvider.petPictures
+
+                    items(listToShow.size) { index ->
                         Box(contentAlignment = Alignment.Center) {
                             Image(
-                                painterResource(PetDataProvider.petPictures[index].imageRes),
+                                painterResource(listToShow[index].imageRes),
                                 "Mascota",
-                                modifier = Modifier.size(100.dp).clickable {
-                                    selectedPictureIndex = index
-                                    selectedPicture = PetDataProvider.petPictures[index]
-                                }
+                                modifier = Modifier
+                                    .size(100.dp)
+                                    .clickable {
+                                        selectedPictureIndex = index
+                                        selectedPicture = listToShow[index]
+                                    }
                             )
                             if (selectedPictureIndex == index) {
                                 Box(
@@ -119,7 +141,8 @@ fun EditPetPictureItem() {
                                         .offset(35.dp, 35.dp)
                                         .size(18.dp)
                                         .background(details, CircleShape)
-                                        .padding(4.dp)) {
+                                        .padding(4.dp)
+                                ) {
                                     Icon(Icons.Rounded.Check, "Seleccionar", tint = Color.White)
                                 }
                             }

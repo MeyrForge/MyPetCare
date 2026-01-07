@@ -79,14 +79,15 @@ fun PetsDrowpdown() {
                 )
             }
             DropdownMenu(
-                containerColor = lightBlue,
+                modifier = Modifier.fillMaxWidth(fraction = 0.5f),
+                containerColor = secondaryColor,
                 expanded = isDropDownExpanded.value,
                 onDismissRequest = { isDropDownExpanded.value = false }
             ) {
                 pets.forEachIndexed { index, pet ->
                     DropdownMenuItem(
                         leadingIcon = { Image(painterResource(R.drawable.four), "pet image", modifier = Modifier.size(30.dp)) },
-                        text = { Text(pet, color = mainColor, style = MaterialTheme.typography.labelMedium) },
+                        text = { Text(pet, color = lightBlue, style = MaterialTheme.typography.bodyLarge) },
                         onClick = {
                             itemPosition.intValue = index
                             isDropDownExpanded.value = false
