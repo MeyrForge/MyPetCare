@@ -37,6 +37,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.meyrforge.mypetcare.add_pet_feature.presentation.AddPetViewModel
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.BackgroundColor
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.BackgroundColorProvider
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.PetDataProvider
@@ -47,13 +49,15 @@ import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
 @Composable
-fun EditPetPictureItem() {
+fun EditPetPictureItem(viewModel: AddPetViewModel = hiltViewModel()) {
     var openPicSelectionCard by remember { mutableStateOf(false) }
     var selectedPictureIndex by remember { mutableStateOf<Int?>(null) }
     var selectedBackgroundIndex by remember { mutableStateOf<Int?>(null) }
     var selectedPicture by remember { mutableStateOf<PetPicture?>(null) }
     var selectedBackgroundColor by remember { mutableStateOf<BackgroundColor?>(null) }
     var catOrDogFilter by remember { mutableStateOf<Species?>(null) }
+    val imageRes by viewModel.imageRes
+    val backgroundColor by viewModel.backgroundColor
 
     Box(
         modifier = Modifier
@@ -201,7 +205,11 @@ fun EditPetPictureItem() {
                             color = secondaryColor
                         )
                     }
-                    TextButton({ openPicSelectionCard = false }) {
+                    TextButton({
+                        viewModel.onImageResChange(selectedPicture?.imageRes ?: 0)
+                        viewModel.onBackgroundColorChange(selectedBackgroundColor?.name ?: "")
+                        openPicSelectionCard = false
+                        }) {
                         Text(
                             "Guardar",
                             color = details

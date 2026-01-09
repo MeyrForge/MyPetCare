@@ -24,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.meyrforge.mypetcare.add_pet_feature.presentation.AddPetViewModel
 import com.meyrforge.mypetcare.add_pet_feature.presentation.utils.SpeciesProvider
 import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.mainColor
@@ -40,7 +43,9 @@ import com.meyrforge.mypetcare.ui.theme.secondaryColor
 
 @Preview
 @Composable
-fun AddPetForm() {
+fun AddPetForm(viewModel: AddPetViewModel = hiltViewModel()) {
+    val name by viewModel.petName
+
     Column(
         modifier = Modifier
             .padding(12.dp)
@@ -68,8 +73,8 @@ fun AddPetForm() {
             )
         }
         TextField(
-            "",
-            {},
+            name,
+            {viewModel.onPetNameChange(it)},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
@@ -142,7 +147,7 @@ fun AddPetForm() {
 }
 
 @Composable
-fun SpeciesDropdown() {
+fun SpeciesDropdown(viewModel: AddPetViewModel = hiltViewModel()) {
     val isDropDownExpanded = remember { mutableStateOf(false) }
     val itemPosition = remember { mutableIntStateOf(0) }
     val species = SpeciesProvider.speciesTranslated
@@ -201,6 +206,7 @@ fun SpeciesDropdown() {
                         onClick = {
                             itemPosition.intValue = index
                             isDropDownExpanded.value = false
+                            viewModel.onSpeciesChange(especie.second)
                         }
                     )
                 }

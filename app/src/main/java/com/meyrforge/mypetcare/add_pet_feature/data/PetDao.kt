@@ -21,11 +21,11 @@ interface PetDao {
 
     @Transaction
     @Update
-    suspend fun updatePet(pet: PetEntity) : Long
+    suspend fun updatePet(pet: PetEntity) : Int
 
     @Transaction
     @Query("DELETE FROM pet_table WHERE id = :petId")
-    suspend fun deletePet(petId: Int) : Long
+    suspend fun deletePet(petId: Int) : Int
 
     @Transaction
     @Query("SELECT * FROM pet_table WHERE id = :petId")

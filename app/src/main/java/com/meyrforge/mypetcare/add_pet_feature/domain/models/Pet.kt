@@ -7,5 +7,5 @@ data class Pet(
     val name: String,
     val species: Species,
     val imageRes: Int,
-    val backgroundColor: Int
+    val backgroundColor: String
 )

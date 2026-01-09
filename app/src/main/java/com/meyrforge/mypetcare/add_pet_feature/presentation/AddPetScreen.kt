@@ -1,5 +1,6 @@
 package com.meyrforge.mypetcare.add_pet_feature.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -14,20 +15,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.meyrforge.mypetcare.add_pet_feature.presentation.components.AddPetForm
 import com.meyrforge.mypetcare.add_pet_feature.presentation.components.EditPetPictureItem
 import com.meyrforge.mypetcare.ui.theme.details
 import com.meyrforge.mypetcare.ui.theme.lightBlue
 
 @Composable
-fun AddPetScreen() {
+fun AddPetScreen(viewModel: AddPetViewModel = hiltViewModel()) {
+    val message by viewModel.message
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -60,7 +65,7 @@ fun AddPetScreen() {
                 contentAlignment = Alignment.BottomCenter
             ) {
                 FloatingActionButton(
-                    {}, containerColor = details, contentColor = Color.White,
+                    {viewModel.savePet()}, containerColor = details, contentColor = Color.White,
                     modifier = Modifier.fillMaxWidth(fraction = 0.8f)
                 ) {
                     Text(
@@ -70,6 +75,10 @@ fun AddPetScreen() {
                     )
 
                 }
+            }
+            if (message.isNotEmpty()){
+                Toast.makeText(LocalContext.current, message, Toast.LENGTH_SHORT).show()
+                viewModel.message.value = ""
             }
         }
     }

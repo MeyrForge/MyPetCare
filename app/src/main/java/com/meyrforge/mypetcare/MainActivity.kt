@@ -54,9 +54,11 @@ import com.meyrforge.mypetcare.ui.theme.background
 import com.meyrforge.mypetcare.ui.theme.details
 import com.meyrforge.mypetcare.ui.theme.lightBlue
 import com.meyrforge.mypetcare.ui.theme.secondaryColor
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,12 +81,13 @@ class MainActivity : ComponentActivity() {
                         containerColor = background,
                         bottomBar = {
                             if (navController.currentBackStackEntryAsState().value?.destination?.route != Screen.LoginScreen.route)
-                            NavigationBarComponent(navController = navController) },
+                                NavigationBarComponent(navController = navController)
+                        },
                         topBar = {
                             if (navController.currentBackStackEntryAsState().value?.destination?.route != Screen.LoginScreen.route)
-                            TopBarComponent(onMenuClick = {
-                                scope.launch { drawerState.open() }
-                            })
+                                TopBarComponent(onMenuClick = {
+                                    scope.launch { drawerState.open() }
+                                })
                         }
                     ) { innerPadding ->
                         Box(modifier = Modifier.padding(innerPadding)) {

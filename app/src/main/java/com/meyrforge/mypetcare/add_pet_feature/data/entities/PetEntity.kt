@@ -13,7 +13,7 @@ data class PetEntity(
     val name: String,
     val species: String,
     @ColumnInfo(name = "image_res") val imageRes: Int,
-    @ColumnInfo(name = "background_color") val backgroundColor: Int
+    @ColumnInfo(name = "background_color") val backgroundColor: String
 
 )
 
